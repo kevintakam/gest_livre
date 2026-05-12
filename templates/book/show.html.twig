@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+{% block title %}{{ book.title }}{% endblock %}
+
+{% block body %}
+<div class="book-detail">
+    <h1>{{ book.title }}</h1>
+    <p><strong>Auteur :</strong> {{ book.author }}</p>
+    <p><strong>ISBN :</strong> {{ book.isbn ?? '—' }}</p>
+    <p><strong>Année :</strong> {{ book.publishedYear ?? '—' }}</p>
+    <p><strong>Ajouté par :</strong> {{ book.owner.email }}</p>
+
+    {% if app.user == book.owner %}
+        <a href="{{ path('app_book_edit', {id: book.id}) }}">✏️ Modifier</a>
+        <form method="POST" action="{{ path('app_book_delete', {id: book.id}) }}"
+              onsubmit="return confirm('Supprimer ce livre ?')">
+            <input type="hidden" name="_token" value="{{ csrf_token('delete_book_' ~ book.id) }}">
+            <button type="submit">🗑️ Supprimer</button>
+        </form>
+    {% endif %}
+
+    <a href="{{ path('app_book_index') }}">← Retour à la liste</a>
+</div>
+{% endblock %}

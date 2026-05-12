@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+{% block title %}Mes Livres{% endblock %}
+
+{% block body %}
+<div class="page-header">
+    <h1>📚 Mes Livres</h1>
+    <a href="{{ path('app_book_new') }}" class="btn btn-primary">+ Ajouter un livre</a>
+</div>
+
+{% if books is empty %}
+    <p class="empty-state">Aucun livre pour l'instant. <a href="{{ path('app_book_new') }}">Ajoutez le premier !</a></p>
+{% else %}
+    <table>
+        <thead>
+            <tr>
+                <th>Titre</th>
+                <th>Auteur</th>
+                <th>ISBN</th>
+                <th>Année</th>
+                <th>Propriétaire</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for book in books %}
+            <tr>
+                <td><a href="{{ path('app_book_show', {id: book.id}) }}">{{ book.title }}</a></td>
+                <td>{{ book.author }}</td>
+                <td>{{ book.isbn ?? '—' }}</td>
+                <td>{{ book.publishedYear ?? '—' }}</td>
+                <td>{{ book.owner.email }}</td>
+                <td>
+                    {% if app.user == book.owner %}
+                        <a href="{{ path('app_book_edit', {id: book.id}) }}">✏️ Modifier</a>
+                        <form method="POST" action="{{ path('app_book_delete', {id: book.id}) }}"
+                              onsubmit="return confirm('Supprimer ce livre ?')">
+                            <input type="hidden" name="_token" value="{{ csrf_token('delete_book_' ~ book.id) }}">
+                            <button type="submit">🗑️ Supprimer</button>
+                        </form>
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endif %}
+{% endblock %}
