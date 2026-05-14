@@ -1,23 +1,51 @@
 {% extends 'base.html.twig' %}
+
 {% block title %}{{ book.title }}{% endblock %}
 
 {% block body %}
-<div class="book-detail">
-    <h1>{{ book.title }}</h1>
-    <p><strong>Auteur :</strong> {{ book.author }}</p>
-    <p><strong>ISBN :</strong> {{ book.isbn ?? '—' }}</p>
-    <p><strong>Année :</strong> {{ book.publishedYear ?? '—' }}</p>
-    <p><strong>Ajouté par :</strong> {{ book.owner.email }}</p>
+<main class="books-page">
+    <section class="book-detail-card">
+        <header class="books-header">
+            <h1>{{ book.title }}</h1>
+            <a href="{{ path('app_book_index') }}" class="btn btn-secondary">
+                ← Retour
+            </a>
+        </header>
 
-    {% if app.user == book.owner %}
-        <a href="{{ path('app_book_edit', {id: book.id}) }}">✏️ Modifier</a>
-        <form method="POST" action="{{ path('app_book_delete', {id: book.id}) }}"
-              onsubmit="return confirm('Supprimer ce livre ?')">
-            <input type="hidden" name="_token" value="{{ csrf_token('delete_book_' ~ book.id) }}">
-            <button type="submit">🗑️ Supprimer</button>
-        </form>
-    {% endif %}
+        <div class="book-detail-grid">
+            <div class="book-detail-item">
+                <strong>Auteur :</strong> {{ book.author }}
+            </div>
 
-    <a href="{{ path('app_book_index') }}">← Retour à la liste</a>
-</div>
+            <div class="book-detail-item">
+                <strong>ISBN :</strong> {{ book.isbn ?? '—' }}
+            </div>
+
+            <div class="book-detail-item">
+                <strong>Année :</strong> {{ book.publishedYear ?? '—' }}
+            </div>
+
+            <div class="book-detail-item">
+                <strong>Ajouté par :</strong> {{ book.owner.email }}
+            </div>
+        </div>
+
+        {% if app.user == book.owner %}
+            <div class="actions">
+                <a class="btn btn-primary" href="{{ path('app_book_edit', {id: book.id}) }}">
+                    ✏️ Modifier
+                </a>
+
+                <form method="POST"
+                      action="{{ path('app_book_delete', {id: book.id}) }}"
+                      data-confirm="Supprimer ce livre ?">
+                    <input type="hidden" name="_token" value="{{ csrf_token('delete_book_' ~ book.id) }}">
+                    <button class="btn btn-danger" type="submit">
+                        🗑️ Supprimer
+                    </button>
+                </form>
+            </div>
+        {% endif %}
+    </section>
+</main>
 {% endblock %}

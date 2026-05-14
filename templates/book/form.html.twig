@@ -1,19 +1,28 @@
 {% extends 'base.html.twig' %}
+
 {% block title %}{{ title }}{% endblock %}
 
 {% block body %}
-<div class="form-container">
-    <h1>{{ title }}</h1>
+<main class="books-page">
+    <section class="book-form-card">
+        <h1>{{ title }}</h1>
 
-    {{ form_start(form) }}
-    
-        {{ form_row(form.title) }}
-        {{ form_row(form.author) }}
-        {{ form_row(form.isbn) }}
-        {{ form_row(form.publishedYear) }}
-        {{ form_row(form.submit) }}
-    {{ form_end(form) }}
+        {{ form_start(form) }}
+            {{ form_row(form.title) }}
+            {{ form_row(form.author) }}
+            {{ form_row(form.isbn) }}
+            {{ form_row(form.publishedYear) }}
 
-    <a href="{{ path('app_book_index') }}">← Retour à la liste</a>
-</div>
+            <button type="submit" class="btn btn-primary">
+                Enregistrer
+            </button>
+        {{ form_end(form, { render_rest: false }) }}
+
+        <p>
+            <a href="{{ path('app_book_index') }}" class="btn btn-secondary">
+                ← Retour à la liste
+            </a>
+        </p>
+    </section>
+</main>
 {% endblock %}

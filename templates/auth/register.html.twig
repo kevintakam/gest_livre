@@ -3,24 +3,27 @@
 {% block title %}Inscription{% endblock %}
 
 {% block body %}
-<div class="min-h-screen flex items-center justify-center bg-gray-100 px-4">
+<main class="auth-page">
+    <section class="auth-card auth-card-register">
 
-    <div class="w-full max-w-md bg-white p-8 rounded-xl shadow-lg">
+        <div class="auth-decoration auth-decoration-top"></div>
+        <div class="auth-decoration auth-decoration-bottom"></div>
 
-        <h1 class="text-2xl font-bold text-center mb-6">
-            Créer un compte
-        </h1>
+        <header class="auth-header">
+            <h1>Create account</h1>
+            <p>Start managing your books in a few seconds.</p>
+        </header>
 
         {{ form_start(form, {
             attr: {
-                class: 'space-y-4',
+                class: 'auth-form',
                 'data-turbo': 'false'
             }
         }) }}
 
             {% if form.vars.errors|length %}
-                <div class="mb-4 p-3 bg-red-100 text-red-700 rounded-lg text-sm">
-                    <ul class="list-disc list-inside">
+                <div class="auth-alert">
+                    <ul>
                         {% for error in form.vars.errors %}
                             <li>{{ error.message }}</li>
                         {% endfor %}
@@ -28,60 +31,58 @@
                 </div>
             {% endif %}
 
-            <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1">
-                    Email
-                </label>
+            <div class="auth-field">
+                <label>Email</label>
                 {{ form_widget(form.email, {
                     attr: {
-                        class: 'w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none',
-                        placeholder: 'Votre adresse email'
+                        class: 'auth-input',
+                        placeholder: 'Enter your email',
+                        autocomplete: 'email'
                     }
                 }) }}
-                {{ form_errors(form.email) }}
+                <div class="auth-field-error">
+                    {{ form_errors(form.email) }}
+                </div>
             </div>
 
-            <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1">
-                    Mot de passe
-                </label>
+            <div class="auth-field">
+                <label>Password</label>
                 {{ form_widget(form.plainPassword.first, {
                     attr: {
-                        class: 'w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none',
-                        placeholder: 'Votre mot de passe'
+                        class: 'auth-input',
+                        placeholder: 'Create a password',
+                        autocomplete: 'new-password'
                     }
                 }) }}
-                {{ form_errors(form.plainPassword.first) }}
+                <div class="auth-field-error">
+                    {{ form_errors(form.plainPassword.first) }}
+                </div>
             </div>
 
-            <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1">
-                    Confirmer le mot de passe
-                </label>
+            <div class="auth-field">
+                <label>Confirm password</label>
                 {{ form_widget(form.plainPassword.second, {
                     attr: {
-                        class: 'w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none',
-                        placeholder: 'Confirmez votre mot de passe'
+                        class: 'auth-input',
+                        placeholder: 'Confirm your password',
+                        autocomplete: 'new-password'
                     }
                 }) }}
-                {{ form_errors(form.plainPassword.second) }}
+                <div class="auth-field-error">
+                    {{ form_errors(form.plainPassword.second) }}
+                </div>
             </div>
 
-            <button type="submit"
-                    class="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition font-medium">
-                Créer mon compte
+            <button type="submit" class="auth-submit">
+                Sign up
             </button>
 
         {{ form_end(form, { render_rest: false }) }}
 
-        <p class="mt-4 text-center text-sm text-gray-600">
-            Déjà un compte ?
-            <a href="{{ path('app_login') }}"
-               class="text-blue-600 hover:underline">
-                Se connecter
-            </a>
+        <p class="auth-footer">
+            Already have an account?
+            <a href="{{ path('app_login') }}">Sign in</a>
         </p>
-
-    </div>
-</div>
+    </section>
+</main>
 {% endblock %}

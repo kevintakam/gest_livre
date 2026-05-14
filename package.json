@@ -19,5 +19,9 @@
     "tailwindcss": "3",
     "webpack": "^5",
     "webpack-cli": "^6"
+  },
+  "dependencies": {
+    "core-js": "^3.49.0",
+    "regenerator-runtime": "^0.14.1"
   }
 }

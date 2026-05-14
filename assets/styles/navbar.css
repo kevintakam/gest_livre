@@ -1,0 +1,119 @@
+.modern-navbar {
+    width: min(1180px, calc(100% - 32px));
+    margin: 18px auto 32px;
+    padding: 10px 12px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+
+    background: #0f0f10;
+    border: 1px solid #242424;
+    border-radius: 999px;
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.16);
+}
+
+.modern-navbar__logo a {
+    width: 54px;
+    height: 54px;
+
+    display: grid;
+    place-items: center;
+
+    background: #ffffff;
+    color: #0f0f10;
+    border-radius: 50%;
+
+    text-decoration: none;
+    font-size: 1.5rem;
+    font-weight: 900;
+}
+
+.modern-navbar__links {
+    display: flex;
+    align-items: center;
+    gap: clamp(18px, 4vw, 54px);
+}
+
+.modern-navbar__links a {
+    color: #f5f5f5;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1rem;
+    transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.modern-navbar__links a:hover {
+    color: #c7d2fe;
+    transform: translateY(-1px);
+}
+
+.modern-navbar__account {
+    min-width: 220px;
+    max-width: 320px;
+    padding: 16px 24px;
+
+    background: #ffffff;
+    color: #111827;
+    border-radius: 999px;
+
+    font-weight: 800;
+    text-align: center;
+
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.modern-navbar__account a {
+    color: #111827;
+    text-decoration: none;
+}
+
+@media (max-width: 820px) {
+    .modern-navbar {
+        border-radius: 28px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .modern-navbar__links {
+        order: 3;
+        width: 100%;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 12px;
+        padding-bottom: 8px;
+    }
+
+    .modern-navbar__links a {
+        padding: 8px 12px;
+        background: #1f2937;
+        border-radius: 999px;
+    }
+
+    .modern-navbar__account {
+        min-width: 0;
+        flex: 1;
+    }
+}
+
+@media (max-width: 480px) {
+    .modern-navbar {
+        width: calc(100% - 20px);
+        margin-top: 10px;
+        gap: 12px;
+    }
+
+    .modern-navbar__logo a {
+        width: 46px;
+        height: 46px;
+    }
+
+    .modern-navbar__account {
+        width: 100%;
+        flex: unset;
+        padding: 13px 18px;
+    }
+}
